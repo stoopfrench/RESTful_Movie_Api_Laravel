@@ -15,9 +15,13 @@ Route::delete('/titles/{id}', 'TitlesController@destroy');
 
 
 // Genre Routes
-Route::get('/genres', 'GenresController@index');
+Route::get('/genre', 'GenresController@index');
 
-Route::get('/genres/{genre}', 'GenresController@index');
+Route::get('/genre/{genre}', 'GenresController@show');
 
-Route::patch('/genres', 'GenresController@index');
+Route::patch('/genre', 'GenresController@store');
 
+// Year Routes
+Route::get('/year', 'GenresController@index');
+
+Route::get('/year/{year}', 'GenresController@show');

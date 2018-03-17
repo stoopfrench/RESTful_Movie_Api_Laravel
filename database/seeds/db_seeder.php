@@ -1,6 +1,6 @@
 <?php
 
-$servername = "stoopfrench.dev";
+$servername = "homestead";
 $username = "homestead";
 $password = "secret";
 
