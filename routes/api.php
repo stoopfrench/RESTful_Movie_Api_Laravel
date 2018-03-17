@@ -22,6 +22,6 @@ Route::get('/genre/{genre}', 'GenresController@show');
 Route::patch('/genre', 'GenresController@store');
 
 // Year Routes
-Route::get('/year', 'GenresController@index');
+Route::get('/year', 'YearsController@index');
 
-Route::get('/year/{year}', 'GenresController@show');
+Route::get('/year/{year}', 'YearsController@show');

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Movie;
-use App\Http\Resources\MovieResource;
-use App\Http\Resources\MovieDetailResource;
+use App\Http\Resources\YearResource;
+use App\Http\Resources\YearDetailResource;
 
 class YearsController extends Controller
 {
@@ -16,18 +17,13 @@ class YearsController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $query = DB::table('movies')
+            ->select(DB::raw('year, count(year) as count')) 
+            ->groupBy('year')
+            ->orderBy('count', -1)
+            ->get(); 
+        
+        return YearResource::collection($query);
     }
 
     /**
@@ -36,19 +32,17 @@ class YearsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($year)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $query = DB::table('movies')
+            ->join('genres','movies.title','=','genres.title')
+            ->select("movies.*"
+            ,DB::raw("(GROUP_CONCAT(genres.genre SEPARATOR '|')) as `combGenres`"))
+            ->where('movies.year','=',$year)
+            ->groupBy('title')
+            ->orderBy('title')
+            ->get();
+        
+        return YearDetailResource::collection($query);
     }
 }

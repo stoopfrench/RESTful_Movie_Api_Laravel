@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MovieDetailResource extends JsonResource
+class YearDetailResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,19 +14,17 @@ class MovieDetailResource extends JsonResource
      */
     public function toArray($request)
     {
-        // return parent::toArray($request);
-
         return [
             'id' => $this->id,
             'title' => $this->title,
             'year' => $this->year,
             'genres' => $this->combGenres,
-            'created' => $this->created,
             'request' => [
                 'type' => 'GET',
-                'description' => 'Get a list of all movies',
-                'url' => '/api/titles'
+                'description' => 'get a details about this movie',
+                'url' => "api/titles/{$this->id}"
             ]
         ];
+
     }
 }

@@ -14,6 +14,14 @@ class YearResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'year' => $this->year,
+            'count' => $this->count,
+            'request' => [
+                'type' => 'GET',
+                'description' => 'get a list of movies from this year',
+                'url' => "api/year/{$this->year}"
+            ]
+        ];
     }
 }
